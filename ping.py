@@ -1,6 +1,3 @@
-
-
-
 import os
 import socket
 import sys
@@ -13,12 +10,12 @@ from time import gmtime, strftime
 
 if __name__ == "__main__":
 
-    destination = "10.1.1.96"
+    destination = "192.168.248.169"
     count = 0
-    command = ["ping", "-c", "10","-s","1342", "-i", "0.2", "-w", "0.2", destination]
-    exists = os.path.isfile('res_ping.csv')
+    command = ["ping", "-c", "10", "-i", "0.2", "-w", "0.2", destination]
+    exists = os.path.isfile('enb_ping.csv')
     if(exists == True):
-        dataF =  pd.read_csv("res_ping.csv")
+        dataF =  pd.read_csv("enb_ping.csv")
     else:
         dataF = pd.DataFrame(columns=['id','Destination','Datetime','avgrtt','loss'])
 
@@ -40,4 +37,4 @@ if __name__ == "__main__":
             ping.kill()
         time.sleep(0.001)
         count += 1
-        dataF.to_csv('res_ping.csv',index= False)
+        dataF.to_csv('enb_ping.csv',index= False)
