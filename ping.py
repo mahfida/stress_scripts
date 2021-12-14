@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     destination = "192.168.248.169"
     count = 0
-    command = ["ping", "-c", "10", "-i", "0.2", "-w", "0.2", destination]
+    command = ["ping", "-c", "3","-s", "64", "-i", "0.2", "-w", "0.2", destination]
     exists = os.path.isfile('enb_ping.csv')
     if(exists == True):
         dataF =  pd.read_csv("enb_ping.csv")
@@ -29,7 +29,7 @@ if __name__ == "__main__":
             if ping.returncode == 0:
                 avgRTT = re.search("rtt min/avg/max/mdev = (\d+.\d+)/(\d+.\d+)/(\d+.\d+)/(\d+.\d+)", str(out)).group(1)
                 loss=re.search("(\d+)% packet loss", str(out)).group(0)
-                print(str(sys.argv[1]), ", average rtt:  %s" %avgRTT ," loss", loss)
+                #print(str(sys.argv[1]), ", average rtt:  %s" %avgRTT ," loss", loss)
 
                 sysTime = strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
                 dataF = dataF.append({'id':str(sys.argv[1]),'Destination': destination,'Datetime': sysTime, 'avgrtt': avgRTT, 'loss': str(loss)}, ignore_index=True)
